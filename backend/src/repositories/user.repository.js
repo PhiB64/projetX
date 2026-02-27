@@ -1,12 +1,12 @@
 import pool from '../config/database.js';
 
+
 class UserRepository {
   // Créer un utilisateur
-  async create(userData) {
-    const { email, password, username } = userData;
+  async create(user) {    
     const [result] = await pool.query(
-      'INSERT INTO users (email, password, username) VALUES (?, ?, ?)',
-      [email, password, username]
+      'INSERT INTO users (email, password, verication_token) VALUES (?, ?, ?)',
+      [user.email, user.password, user.verificatioToken]
     );
     return result.insertId;
   }
@@ -20,41 +20,24 @@ class UserRepository {
     return rows[0];
   }
 
-  // Trouver un utilisateur par ID
-  async findById(id) {
+  // Trouver les utilisateurs connectés
+  async getActiveUsers() {
     const [rows] = await pool.query(
-      'SELECT * FROM users WHERE id = ?',
-      [id]
+      'SELECT id, email, latitude, longitude, FROM users WHERE last_seen > (NOW(), INTERVAL 3 MINUTE)',
+      
     );
-    return rows[0];
-  }
-
-  // Récupérer tous les utilisateurs
-  async findAll() {
-    const [rows] = await pool.query('SELECT * FROM users');
     return rows;
   }
+  
 
-  // Mettre à jour la position d'un utilisateur
+  // Mettre à jour la position des utilisateurs toutes les 3 minutes
   async updateLocation(userId, latitude, longitude) {
     await pool.query(
       'UPDATE users SET latitude = ?, longitude = ?, last_seen = NOW() WHERE id = ?',
       [latitude, longitude, userId]
     );
   }
-
-  // Mettre à jour le statut de vérification
-  async updateVerificationStatus(userId, isVerified) {
-    await pool.query(
-      'UPDATE users SET is_verified = ? WHERE id = ?',
-      [isVerified, userId]
-    );
-  }
-
-  // Supprimer un utilisateur
-  async delete(id) {
-    await pool.query('DELETE FROM users WHERE id = ?', [id]);
-  }
+ 
 }
 
 export default new UserRepository();
