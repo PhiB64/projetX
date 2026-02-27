@@ -6,7 +6,7 @@ class UserRepository {
   async create(user) {    
     const [result] = await pool.query(
       'INSERT INTO users (email, password, verication_token) VALUES (?, ?, ?)',
-      [user.email, user.password, user.verificatioToken]
+      [user.email, user.password, user.verificationToken]
     );
     return result.insertId;
   }

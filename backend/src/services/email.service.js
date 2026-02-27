@@ -47,7 +47,7 @@ async function sendEmail(to, subject, html) {
 
 // Envoyer un email de vérification
 async function sendVerificationEmail(email, token) {
-  const verificationLink = `${env.FRONTEND_URL}/verify-email?token=${token}`;
+  const verificationLink = `http://localhost:3000/auth/verify-email?token=${token}`;
   
   const html = `
     <h2>Vérifiez votre email</h2>
