@@ -5,7 +5,7 @@ class UserRepository {
   // Créer un utilisateur
   async create(user) {    
     const [result] = await pool.query(
-      'INSERT INTO users (email, password, verication_token) VALUES (?, ?, ?)',
+      'INSERT INTO users (email, password, verification_token) VALUES (?, ?, ?)',
       [user.email, user.password, user.verificationToken]
     );
     return result.insertId;
@@ -23,8 +23,7 @@ class UserRepository {
   // Trouver les utilisateurs connectés
   async getActiveUsers() {
     const [rows] = await pool.query(
-      'SELECT id, email, latitude, longitude, FROM users WHERE last_seen > (NOW(), INTERVAL 3 MINUTE)',
-      
+      'SELECT id, email, latitude, longitude FROM users WHERE last_seen > DATE_SUB(NOW(), INTERVAL 3 MINUTE)'
     );
     return rows;
   }

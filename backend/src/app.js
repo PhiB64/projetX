@@ -5,6 +5,8 @@ import ratelimit from 'express-rate-limit';
 import { env } from './config/env.js';
 import authRoutes from './routes/auth.route.js';
 import { errorHandler } from './middleware/error.middleware.js';
+import userRoutes from './routes/user.route.js';
+
 
 const app = express();
 const PORT = env.PORT || 3000;
@@ -18,8 +20,10 @@ app.use(ratelimit({
 }));
 
 app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 app.use(errorHandler);
+
 
 // Démarrage du serveur
 app.listen(PORT, () => {
