@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { env } from '../config/env.js';
 import pool from '../config/database.js';
 import { sendVerificationEmail } from './email.service.js';
+import userRepository from '../repositories/user.repository.js';
 
 export const authService = {
   // Inscription
@@ -117,5 +118,16 @@ export const authService = {
       userId: user.id,
       email: user.email
     };
+  },
+
+  async verifyUser(token) {
+   
+     const user = await userRepository.findByToken(token);
+if (!user) return null;
+
+    await userRepository.updateVerification(user.id, true);
+    return user;
+   
   }
-};
+      
+    }

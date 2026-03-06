@@ -30,12 +30,13 @@ export const authController = {
 
   async verifyEmail(req, res, next) {
     try {
-      const { token } = req.query;
-      const result = await authService.verifyEmail(token);
-      res.status(200).json(result);
+      const { token } = req.params;
+      const user = await authService.verifyEmail(token);
+      if (!user) { res.status(400).json({ message: 'Token de vérification invalide ou expiré' });
+      }
+      res.status(200).json({ message: 'Utilisateur vérifié avec succès', user });
     } catch (error) {
       next(error);
     }
   }
 };
-       

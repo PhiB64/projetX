@@ -20,6 +20,21 @@ class UserRepository {
     return rows[0];
   }
 
+async findByToken(token) {
+    const [rows] = await pool.query(
+      'SELECT * FROM users WHERE verification_token = ?',
+      [token]
+    );
+    return rows[0];
+  }
+
+async updateVerification(userId, isVerified) {
+    await pool.query(
+      'UPDATE users SET is_verified = ?, verification_token = NULL WHERE id = ?',
+      [isVerified, userId]
+    );
+  }
+
   // Trouver les utilisateurs connectés
   async getActiveUsers() {
     const [rows] = await pool.query(
