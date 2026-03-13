@@ -1,10 +1,9 @@
 import { Resend } from 'resend';
 import { env } from '../config/env.js';
 
-const resend = new Resend(env.RESEND_API_KEY);
-
 // Envoyer un email
 async function sendEmail(to, subject, html) {
+  const resend = new Resend(env.RESEND_API_KEY);
   try {
     const { data, error } = await resend.emails.send({
       from: env.RESEND_FROM_EMAIL,
