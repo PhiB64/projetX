@@ -32,9 +32,19 @@ export const authController = {
     try {
       const { token } = req.params;
       const user = await authService.verifyEmail(token);
-      if (!user) { res.status(400).json({ message: 'Token de vérification invalide ou expiré' });
+      if (!user) {
+        return res.status(400).send(`
+          <html><body style="font-family:sans-serif;text-align:center;padding:50px">
+            <h2>❌ Lien invalide ou expiré</h2>
+          </body></html>
+        `);
       }
-      res.status(200).json({ message: 'Utilisateur vérifié avec succès', user });
+      res.status(200).send(`
+        <html><body style="font-family:sans-serif;text-align:center;padding:50px">
+          <h2>✅ Email vérifié avec succès !</h2>
+          <p>Vous pouvez maintenant vous connecter.</p>
+        </body></html>
+      `);
     } catch (error) {
       next(error);
     }
