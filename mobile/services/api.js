@@ -2,7 +2,10 @@ import axios from "axios";
 import * as SecureStore from 'expo-secure-store';
 
 export const api = axios.create({
-    baseURL: "https://projetx-p6ak.onrender.com"
+    baseURL: "https://projetx-p6ak.onrender.com",
+    headers:{
+        'Content-Type': 'application/json'
+    }
 });
 
 api.interceptors.request.use(async (config) => {
