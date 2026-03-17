@@ -11,6 +11,7 @@ const InputField = ({value, onChangeText, placeholder, error, secureTextEntry, a
       autoCapitalize={autoCapitalize}
       autoComplete={autoComplete}
       textContentType={textContentType}
+      placeholderTextColor="#bdbdbd"
       style={styles.input}
     />
     {error && <Text style={styles.error}>{error}</Text>}

@@ -3,8 +3,8 @@ import { StyleSheet ,Text,View,ActivityIndicator} from "react-native";
 const Loading = () => {
     return (
         <View style={styles.container}>
-            <ActivityIndicator size="large" color="#4ADE80" />
-            <Text style={styles.text}>Chargement...</Text>
+            <ActivityIndicator size="large" color="#007c2e" />
+            <Text style={styles.text}>Loading...</Text>
         </View>
     )
 }
@@ -12,15 +12,13 @@ const Loading = () => {
 export default Loading
 
 const styles = StyleSheet.create({
-    container: {
-     
-       
+    container: {         
         alignItems: 'center',
         justifyContent: 'center',
     },
     text: {
         marginTop: 16,
-        color: '#94A3B8',
+        color: '#229d2e',
         fontSize: 16,
     },
 });
