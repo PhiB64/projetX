@@ -1,7 +1,9 @@
 import { Text, View, Alert, TouchableOpacity } from 'react-native'
+import Button from '../components/Button'
 import React from 'react'
 import { useAuthStore } from '../store/authStore'
 import { useNavigation } from '@react-navigation/native'
+import LottieView from 'lottie-react-native'
 
 const Profile = () => {
   const navigation = useNavigation()
@@ -24,11 +26,21 @@ const Profile = () => {
   }
 
   return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text style={{ fontSize: 20, fontWeight: 'bold' }}>Profil</Text>
-      <Text style={{ fontSize: 16, marginTop: 10, fontWeight: 'bold', textAlign: 'center', lineHeight: 50, color: '#5760a5' }}>{`Bienvenue\n${userEmail}`}</Text>
-      <TouchableOpacity onPress={handleLogout}>
-        <Text style={{ color: '#006948', marginTop: 20 }}>Se déconnecter</Text>
+    <View style={{ flex: 1, justifyContent: 'center', padding: 30 }}>
+      <LottieView
+        source={require('../assets/animation.json')}
+        autoPlay
+        loop
+        style={{ width: 150, height: 150, alignSelf: 'center', marginBottom: 80 }}
+      />
+      <Text style={{ fontSize: 20, fontWeight: 'bold' , textAlign: 'center'}}>Profil</Text>
+      <Text style={{ backgroundColor: '#bbdbc0', fontSize: 18, marginTop: 10, fontWeight: 'bold', textAlign: 'center', lineHeight: 40, color: '#056500', padding: 10, borderRadius: 5 }}>{`Bienvenue\n${userEmail}`}</Text>
+      <TouchableOpacity style={{ marginTop: 20 }}>
+        <Button title="Voir la carte"  onPress={() => navigation.navigate('Map')}/>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={{ marginTop: 20 }} >
+        <Button title="Se déconnecter" onPress={handleLogout}/>
       </TouchableOpacity>
     </View>
   )

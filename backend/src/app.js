@@ -17,10 +17,7 @@ app.use(express.json());
 
 app.use(helmet({ contentSecurityPolicy: false })); //active en production avec la config adaptée
 
-app.use(ratelimit({
-  windowMs: 15 * 60 * 1000,
-  max: 50
-}));
+
 
 const limiter = ratelimit({
   windowMs: 15 * 60 * 1000,

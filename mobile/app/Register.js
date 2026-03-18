@@ -42,7 +42,7 @@ const onSubmit = async (data) => {
   source={require('../assets/animation.json')}
   autoPlay
   loop
-  style={{ width: 150, height: 150, alignSelf: 'center', marginBottom: 100 }}
+  style={{ width: 150, height: 150, alignSelf: 'center', marginBottom: 80 }}
 />
           <Text style={{ fontSize: 20, fontWeight: 'bold', textAlign: 'center', marginBottom: 20 }}>Enregistrement</Text>
 
